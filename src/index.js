@@ -4,6 +4,7 @@
 const katex = require("katex");
 require('./index.css');
 require("katex/dist/katex.css");
+const uuid = require("uuid")
 
 /**
  * Math Block for the Editor.js.
@@ -146,9 +147,11 @@ class Math {
     this.panel.hidden = true
     this.panel.contentEditable = false
 
+    let id = uuid.v4().split('-')[0]
+
     const map = document.createElement('map')
-    map.name = 'operators_map'
-    map.id = 'operators_map'
+    map.name = `operators_map_${id}`
+    map.id = `operators_map_${id}`
 
     const img = document.createElement('img')
     img.src = image
@@ -156,7 +159,7 @@ class Math {
     img.height = 140
     img.title = "Operators"
     img.alt = "Operators Panel"
-    img.useMap = "#operators_map"
+    img.useMap = `#operators_map_${id}`
 
 
     this.panelArea.forEach((areaConfig)=>{
