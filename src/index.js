@@ -146,6 +146,18 @@ class Math {
 
     let operatorHolder = document.createElement('div')
     operatorHolder.style.display = 'flex';
+    const clearOpened = (avoidOperator) => {
+      Object.entries(this.panelArea).forEach(([operator]) => {
+        if (avoidOperator !== operator) {
+          document.getElementById(operator).innerHTML = operator;
+        }
+      })
+      Object.entries(this.panelArea2).forEach(([operator]) => {
+        if (avoidOperator !== operator) {
+          document.getElementById(operator).innerHTML = operator;
+        }
+      })
+    }
     Object.entries(this.panelArea).forEach(([operator, operations]) => {
 
       let labelOperator = document.createElement('button')
@@ -154,10 +166,15 @@ class Math {
       operators.style.display = "block";
       operators.style.position = "absolute";
       operators.style.backgroundColor = 'white';
-      operators.style.width = '40px';
+      operators.style.display = "flex";
       operators.style.border = '0.025rem solid';
       operators.style.borderRadius = '4px';
+      operators.style.maxWidth = '300px';
+      operators.style.flexDirection = 'row';
+      operators.style.flexWrap = 'wrap';
+      operators.style.height = 'unset !important';
 
+      labelOperator.id = operator;
       labelOperator.classList.add(this.api.styles.button)
       labelOperator.style.margin = '2px'
       labelOperator.innerHTML = operator
@@ -166,6 +183,7 @@ class Math {
       labelOperator.style.margin = '2px'
 
       labelOperator.addEventListener('click', () => {
+        clearOpened(operator);
         if (labelOperator.lastChild !== operators) {
           labelOperator.appendChild(operators);
         } else {
@@ -180,6 +198,7 @@ class Math {
         div.style.display = 'flex'
         div.style.justifyContent = 'center'
         div.style.padding = '5px'
+        div.classList.add('ce-toolbox__button')
         katex.render(operation.operator, div, this.config);
 
         div.onclick = () => {
@@ -202,10 +221,17 @@ class Math {
       operators.style.display = "block";
       operators.style.position = "absolute";
       operators.style.backgroundColor = 'white';
-      operators.style.minWidth = '40px';
+      operators.style.display = "flex";
       operators.style.border = '0.025rem solid';
       operators.style.borderRadius = '4px';
+      operators.style.maxWidth = '300px';
+      operators.style.flexDirection = 'row';
+      operators.style.flexWrap = 'wrap';
+      operators.style.height = 'unset !important';
 
+      operators.classList.add(this.api.styles.inlineToolButton)
+
+      labelOperator.id = operator;
       labelOperator.classList.add(this.api.styles.button)
       labelOperator.style.margin = '2px'
       labelOperator.innerHTML = operator
@@ -213,6 +239,7 @@ class Math {
       labelOperator.style.padding = '5px'
 
       labelOperator.addEventListener('click', () => {
+        clearOpened(operator);
         if (labelOperator.lastChild !== operators) {
           labelOperator.appendChild(operators);
         } else {
@@ -227,6 +254,8 @@ class Math {
         div.style.display = 'flex'
         div.style.justifyContent = 'center'
         div.style.padding = '5px'
+        div.classList.add('ce-toolbox__button')
+
         katex.render(operation.operator, div, this.config);
 
         div.onclick = () => {
